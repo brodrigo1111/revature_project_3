@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <h1>Flashcards</h1>
+    <div><%= link_to 'Decks', controller: 'deck', action: 'index' %></div>
+    <div><%= link_to 'New Deck', controller: 'deck', action: 'new' %></div>
     <%= yield %>
   </body>
 </html>

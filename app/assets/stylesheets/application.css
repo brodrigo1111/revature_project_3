@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+/*
+* {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: inherit;
+    list-style: none;
+    border: none;
+    border-width: 0;
+    border-style: solid;
+    border-color: transparent;
+    outline: none;
+    outline-width: 0;
+    outline-color: transparent;
+    scroll-behavior: smooth;
+}*/

@@ -1,0 +1,41 @@
+<% @flipped = Hash.new %>
+<h1><%= @deck.name %></h1>
+<% @deck.cards.each do |card| %>
+  <div class="card" >
+    <button class="flipButton" style="display: block;border:solid;width:20rem;height:8rem;">
+        <p class="front" style="display:flex;justify-content: center"><%= card.front %></p>
+        <p class="back" style="display:none;justify-content: center"><%= card.back %></p>
+    </button>
+  </div>
+  </br>
+<% end %>
+<script>
+  if ("buttons" in window) {
+      delete buttons;
+  }
+  var buttons = [].slice.call(document.getElementsByClassName("flipButton"));
+  buttons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+          let top = e.target;
+          if (top.className !== "flipButton") {
+            top = top.parentElement;
+          }
+          if (top.children[0].style.display === 'none') {
+            top.children[0].style.display = 'flex';
+            top.children[1].style.display = 'none';
+          } else {
+            top.children[1].style.display = 'flex';
+            top.children[0].style.display = 'none';
+          }
+      });
+  })
+</script>
+<%= form_with url: ('/card/create/' + @deck.id.to_s), method: :post, data: {turbo: false} do |form| %>
+  <p>New Flashcard</p>
+  <%= form.label :front, "Front:" %>
+  <%= form.text_field :front %>
+  <%= form.label :back, "Back:" %>
+  <%= form.text_field :back %>
+  <%= form.submit "Submit" %>
+<% end %>
+

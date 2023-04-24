@@ -1,0 +1,6 @@
+<h1>Decks</h1>
+<% Deck.all.each do |deck| %>
+  <p>
+    <%= link_to deck.name, action: 'show', id: deck.id %>
+  </p>
+<% end %>
