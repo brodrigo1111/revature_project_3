@@ -33,3 +33,95 @@
     outline-color: transparent;
     scroll-behavior: smooth;
 }*/
+
+* {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #AAAABB;
+}
+
+a {
+    text-decoration: none;
+    color: #1122BB;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.app-title {
+    font-family: Cambria;
+    font-size: 32pt;
+    font-style: italic;
+}
+
+.app-link {
+    padding-right: 2rem;
+    font-size: 18pt;
+}
+
+.app-links {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: auto;
+    width: auto;
+    margin: 0 auto;
+    padding-bottom: 1rem;
+    border-bottom: solid;
+}
+
+.app-content {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+.flip-button {
+    background-color: #CCEEEE;
+}
+
+.front {
+    background-color: #CCEEEE;
+}
+
+.back {
+    background-color: #EEDDEE;
+}
+
+.new-flashcard-form {
+    font-size: 16pt;
+    width: auto;
+}
+
+.edit-flashcard-form {
+    display: none;
+    font-size: 16pt;
+    width: auto;
+}
+
+.delete-flashcard-form {
+    display: none;
+    font-size: 16pt;
+    width: auto;
+    padding-bottom: 1rem;
+}
+
+.form-input {
+    padding-bottom: 1rem;
+}
+
+
+
+
+

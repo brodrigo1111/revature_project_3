@@ -1,4 +1,5 @@
 class Deck < ApplicationRecord
   has_many :cards, dependent: :destroy
-  validates :name, uniqueness: true, presence: true
+  belongs_to :user, optional: true
+  validates :name, presence: true, uniqueness: true
 end

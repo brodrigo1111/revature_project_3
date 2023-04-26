@@ -1,7 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+deck1:
+  name: DECK1
+  user: user1
+  private: false
 
-two:
-  name: MyString
+deck2:
+  name: DECK2
+  user: user2
+  private: true

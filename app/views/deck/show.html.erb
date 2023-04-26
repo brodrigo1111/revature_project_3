@@ -1,11 +1,40 @@
-<% @flipped = Hash.new %>
 <h1><%= @deck.name %></h1>
 <% @deck.cards.each do |card| %>
   <div class="card" >
-    <button class="flipButton" style="display: block;border:solid;width:20rem;height:8rem;">
+    <button class="flip-button" style="display: block;border:solid;width:20rem;height:8rem;">
         <p class="front" style="display:flex;justify-content: center"><%= card.front %></p>
         <p class="back" style="display:none;justify-content: center"><%= card.back %></p>
     </button>
+    <% if session[:user_id] == @deck.user_id %>
+    <button class="edit-button">
+      Edit
+    </button>
+    <div class="edit-flashcard-form">
+      <%= form_with url: ('/card/update/' + card.id.to_s), method: :put, data: {turbo: false} do |form| %>
+        <p class="new-flashcard-title">Edit Flashcard</p>
+        <div class="form-label">
+          <%= form.label :front, "Front:" %>
+        </div>
+        <div class="form-input">
+          <%= form.text_field :front, value: card.front %>
+        </div>
+        <div class="form-label">
+          <%= form.label :back, "Back:" %>
+        </div>
+        <div class="form-input">
+          <%= form.text_field :back, value: card.back %>
+        </div>
+        <div class="submit-button">
+          <%= form.submit "Update" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="delete-flashcard-form">
+      <%= form_with url: ('/card/delete/' + card.id.to_s), method: :delete, data: {turbo: false} do |form| %>
+          <%= form.submit "Delete" %>
+      <% end %>
+    </div>
+    <% end %>
   </div>
   </br>
 <% end %>
@@ -13,29 +42,99 @@
   if ("buttons" in window) {
       delete buttons;
   }
-  var buttons = [].slice.call(document.getElementsByClassName("flipButton"));
+  if ("editButtons" in window) {
+      delete buttons;
+  }
+  var buttons = [].slice.call(document.getElementsByClassName("flip-button"));
   buttons.forEach((button) => {
       button.addEventListener("click", (e) => {
           let top = e.target;
-          if (top.className !== "flipButton") {
+          if (top.className !== "flip-button") {
             top = top.parentElement;
           }
-          if (top.children[0].style.display === 'none') {
+          if (top.children[0].style.display === 'none') { // FLIP TO FRONT
             top.children[0].style.display = 'flex';
             top.children[1].style.display = 'none';
-          } else {
+            top.style.backgroundColor = '#CCEEEE';
+          } else { // FLIP TO BACK
             top.children[1].style.display = 'flex';
             top.children[0].style.display = 'none';
+            top.style.backgroundColor = '#EEDDEE';
+          }
+      });
+  })
+  var editButtons = [].slice.call(document.getElementsByClassName("edit-button"));
+  editButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+          let top = e.target;
+          if (top.className !== "card") {
+              top = top.parentElement;
+          }
+          console.log(top.children[2].style.display);
+          if (top.children[2].style.display === 'none' || top.children[2].style.display === '') { // FLIP TO FRONT
+              top.children[2].style.display = 'flex';
+              top.children[3].style.display = 'flex';
+              top.children[1].innerHTML = 'Close'
+          } else { // FLIP TO BACK
+              top.children[2].style.display = 'none';
+              top.children[3].style.display = 'none';
+              top.children[1].innerHTML = 'Edit'
           }
       });
   })
 </script>
+<% if session[:user_id] == @deck.user_id %>
+<h1>Deck Settings</h1>
+<div class="new-flashcard-form">
 <%= form_with url: ('/card/create/' + @deck.id.to_s), method: :post, data: {turbo: false} do |form| %>
-  <p>New Flashcard</p>
-  <%= form.label :front, "Front:" %>
-  <%= form.text_field :front %>
-  <%= form.label :back, "Back:" %>
-  <%= form.text_field :back %>
+  <p class="new-flashcard-title">Add Flashcard</p>
+  <div class="form-label">
+    <%= form.label :front, "Front:" %>
+  </div>
+  <div class="form-input">
+    <%= form.text_field :front %>
+  </div>
+  <div class="form-label">
+    <%= form.label :back, "Back:" %>
+  </div>
+  <div class="form-input">
+    <%= form.text_field :back %>
+  </div>
+  <div class="submit-button">
   <%= form.submit "Submit" %>
+  </div>
+<% end %>
+</div>
+  <br/>
+<div class="deck-settings">
+  <div class="new-flashcard-form">
+    <%= form_with url: ('/deck/update/' + @deck.id.to_s), method: :put, data: {turbo: false} do |form| %>
+      <div class="form-label">
+        <%= form.label :name, "Edit Deck Name:" %>
+      </div>
+      <div class="form-input">
+        <%= form.text_field :name, value: @deck.name %>
+      </div>
+      <div class="form-label">
+        <%= form.label :private, "Private?" %>
+      </div>
+      <div class="form-input">
+        <%= form.check_box :private, checked: @deck.private %>
+      </div>
+      <div class="submit-button">
+        <%= form.submit "Update" %>
+      </div>
+    <% end %>
+  </div>
+  <br/>
+  <%= form_with url: ('/deck/delete/' + @deck.id.to_s), method: :delete, data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure you want to delete this deck?"
+  } do |form| %>
+    <div class="submit-button">
+      <%= form.submit "Delete Deck" %>
+    </div>
+  <% end %>
+</div>
 <% end %>
 

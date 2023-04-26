@@ -1,0 +1,20 @@
+<div class="login-form">
+  <%= form_with url: ('/login'), method: :post, data: {turbo: false} do |form| %>
+    <h1>Login</h1>
+    <div class="form-label">
+      <%= form.label :front, "Username:" %>
+    </div>
+    <div class="form-input">
+      <%= form.text_field :username %>
+    </div>
+    <div class="form-label">
+      <%= form.label :back, "Password:" %>
+    </div>
+    <div class="form-input">
+      <%= form.text_field :password %>
+    </div>
+    <div class="submit-button">
+      <%= form.submit "Login" %>
+    </div>
+  <% end %>
+</div>
