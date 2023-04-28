@@ -41,6 +41,10 @@ class DeckController < ApplicationController
       redirect_to controller: :error, action: :handle
       return
     end
+    if @current_user.id != deck.user_id
+      redirect_to controller: :error, action: :handle
+      return
+    end
     if deck.destroy
       redirect_to action: 'index'
     else
@@ -56,7 +60,7 @@ class DeckController < ApplicationController
       return
     end
     if @current_user.id != deck.user_id
-      redirect_to controller: :session, action: :create
+      redirect_to controller: :error, action: :handle
       return
     end
     if deck.update(name: params[:name], private: params[:private])

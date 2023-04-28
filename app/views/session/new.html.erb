@@ -18,3 +18,24 @@
     </div>
   <% end %>
 </div>
+<br/>
+<div class="login-form">
+  <%= form_with url: ('/user/create'), method: :post, data: {turbo: false} do |form| %>
+    <h1>Sign up</h1>
+    <div class="form-label">
+      <%= form.label :front, "Username:" %>
+    </div>
+    <div class="form-input">
+      <%= form.text_field :username %>
+    </div>
+    <div class="form-label">
+      <%= form.label :back, "Password:" %>
+    </div>
+    <div class="form-input">
+      <%= form.text_field :password %>
+    </div>
+    <div class="submit-button">
+      <%= form.submit "Create Account" %>
+    </div>
+  <% end %>
+</div>

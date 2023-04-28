@@ -1,14 +1,8 @@
 require "test_helper"
+require_relative "../helpers/setup.rb"
 
 class CardControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user1 = users(:user1)
-    @user2 = users(:user2)
-    @deck1 = decks(:deck1)
-    @deck2 = decks(:deck2)
-    @card1 = cards(:card1)
-    @card2 = cards(:card2)
-  end
+  doSetup
 
   test "should not get create" do
     get '/card/create/1'

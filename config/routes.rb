@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   put 'card/update/:id', to: 'card#update'
   delete 'card/delete/:id', to: 'card#delete'
 
+  post 'user/create', to: 'user#create'
+
   get 'error', to: 'error#handle'
   match '*path', to: 'error#handle', via: :all
 

@@ -1,0 +1,11 @@
+<div class="app-links">
+  <% if session[:user_id].nil? %>
+    <div class="app-link"><%= link_to 'Login/Signup', controller: 'session', action: 'new' %></div>
+  <% else %>
+    <div class="app-link"><%= link_to 'Logout', controller: 'session', action: 'destroy' %></div>
+  <% end %>
+  <div class="app-link"><%= link_to 'Decks', controller: 'deck', action: 'index' %></div>
+  <% unless session[:user_id].nil? %>
+    <div class="app-link"><%= link_to 'New Deck', controller: 'deck', action: 'new' %></div>
+  <% end %>
+</div>
